@@ -39,5 +39,5 @@ jobs:
           git config --global user.name 'GitHub Autobot'
           git config --global user.email 'autobot@no-reply.github.com'
           git diff-index --quiet HEAD || git commit -am "terraform checks" && git push
-      - run: echo "This job's status is ${{ job.status }}."
+      - run: echo "This job's status is ${{ job.status }}"
 
