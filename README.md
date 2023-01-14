@@ -1,2 +1,2 @@
 # terraform-example
-Terraform example repo
+Terraform example repo for use in AWS.

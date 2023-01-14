@@ -1,0 +1,46 @@
+name: tf-checks
+run-name: Building the project
+on:
+  push:
+    branches: [ main ]
+env: 
+  CARGO_TERM_COLOR: always
+jobs:
+  tf-fmt:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.3.7
+      - name: Setup Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: "1.19.x"
+      - run: go install github.com/terraform-docs/terraform-docs@v0.16.0
+      - run: cd ${{ github.workspace }}
+      - run: terraform tf-fmt
+      - run: |
+          # Keep module docs up to date
+          for d in ./modules/*; do
+            if terraform-docs md "$d" > "$d/README.md"; then
+              git add "./$d/README.md"
+            fi
+            terraform fmt "$d"
+            git add "$d"
+          done
+
+          # Keep environment docs up to date
+          for d in ./environments/*; do
+            if terraform-docs md "$d" > "$d/README.md"; then
+              git add "./$d/README.md"
+            fi
+            terraform fmt "$d"
+            git add "$d"
+          done
+
+          git config --global user.name 'GitHub Autobot'
+          git config --global user.email 'autobot@no-reply.github.com'
+          git diff-index --quiet HEAD || git commit -am "terraform checks" && git push
+      - run: echo "This job's status is ${{ job.status }}."
+
