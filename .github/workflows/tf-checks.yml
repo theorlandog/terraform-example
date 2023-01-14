@@ -1,5 +1,4 @@
 name: tf-checks
-run-name: Building the project
 on:
   push:
     branches: [ main ]
