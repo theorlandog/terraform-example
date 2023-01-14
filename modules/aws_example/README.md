@@ -29,7 +29,7 @@ No modules.
 | <a name="input_aws_region"></a> [aws\_region](#input\_aws\_region) | AWS region to apply mdoule | `string` | n/a | yes |
 | <a name="input_environment"></a> [environment](#input\_environment) | Environment name for module | `string` | n/a | yes |
 | <a name="input_module"></a> [module](#input\_module) | Name of the module | `string` | `"example"` | no |
-| <a name="input_tags"></a> [tags](#input\_tags) | Map of tags to add to resources for module | `map` | `{}` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | Map of tags to add to resources for module | `map(any)` | `{}` | no |
 
 ## Outputs
 
