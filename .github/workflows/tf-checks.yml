@@ -1,7 +1,6 @@
 name: tf-checks
 on:
-  push:
-    branches: [ main ]
+  push
 env: 
   CARGO_TERM_COLOR: always
 jobs:
